@@ -23,7 +23,7 @@ namespace Leap.Unity {
     protected Dictionary<int, HandRepresentation> physicsHandReps = new Dictionary<int, HandRepresentation>();
 
     protected bool graphicsEnabled = true;
-    protected bool physicsEnabled = true;
+    protected bool physicsEnabled = false;
 
     public bool GraphicsEnabled {
       get {

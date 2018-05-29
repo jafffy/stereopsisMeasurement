@@ -129,7 +129,7 @@ namespace Leap.Unity.Examples {
               handle.EnsureVisible();
             }
             else {
-              handle.EnsureHidden();
+              handle.EnsureVisible();
             }
           }
           break;
@@ -143,14 +143,14 @@ namespace Leap.Unity.Examples {
 
               if (!_activeHandles.Contains(translateHandle)
                   && _activeTranslationAxes.Contains(translateHandle.axis)) {
-                handle.EnsureHidden();
+                handle.EnsureVisible();
               }
               else {
                 handle.EnsureVisible();
               }
             }
             else {
-              handle.EnsureHidden();
+              handle.EnsureVisible();
             }
           }
           break;
