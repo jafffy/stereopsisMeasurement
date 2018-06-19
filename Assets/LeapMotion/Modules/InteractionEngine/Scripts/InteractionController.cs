@@ -1295,10 +1295,15 @@ namespace Leap.Unity.Interaction {
           if (_delayedDisableSoftContactCoroutine != null) {
             manager.StopCoroutine(_delayedDisableSoftContactCoroutine);
           }
-          for (int i = 0; i < contactBones.Length; i++) {
-            if (contactBones[i].collider == null) continue;
 
-            disableContactBoneCollision();
+          if (contactBones != null)
+          {
+            for (int i = 0; i < contactBones.Length; i++)
+            {
+                if (contactBones[i].collider == null) continue;
+
+                disableContactBoneCollision();
+            }
           }
         }
       }

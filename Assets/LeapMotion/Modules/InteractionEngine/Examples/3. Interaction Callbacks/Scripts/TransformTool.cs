@@ -39,6 +39,7 @@ namespace Leap.Unity.Examples {
 
     void Start() {
       foreach (var handle in GetComponentsInChildren<TransformHandle>()) {
+        Debug.Log(handle.ToString());
         _transformHandles.Add(handle);
       }
 
