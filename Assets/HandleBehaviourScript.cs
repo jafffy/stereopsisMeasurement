@@ -17,15 +17,13 @@ public class HandleBehaviourScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
-
+  }
+  
   private void onPostPhysics()
   {
     _intObj.rigidbody.position = this.transform.position;
     _intObj.rigidbody.rotation = this.transform.rotation;
   }
-
 
   private void onGraspBegin()
   {
