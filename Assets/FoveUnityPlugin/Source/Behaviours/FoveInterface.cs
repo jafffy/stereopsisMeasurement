@@ -58,8 +58,8 @@ namespace UnityEngine
 		private bool _hasCameras = false;
 		private FoveEyeCamera _leftFoveEye, _rightFoveEye;
 
-        public FoveEyeCamera LeftFoveEye { get { return _leftFoveEye; } }
-        public FoveEyeCamera RightFoveEye {  get { return _rightFoveEye; } }
+		public FoveEyeCamera LeftFoveEye { get { return _leftFoveEye; } }
+		public FoveEyeCamera RightFoveEye { get { return _rightFoveEye; } }
 
 		private static List<FoveInterface> _sAllLegacyInterfaces;
 
@@ -373,8 +373,8 @@ namespace UnityEngine
 
 			_leftFoveEye.Compositor = _compositor;
 			_rightFoveEye.Compositor = _compositor;
-			
-			return true;
+
+            return true;
 		}
 
 		//! Disconnect the Fove Compositor
@@ -400,12 +400,48 @@ namespace UnityEngine
 					continue;
 				}
 
-				_leftCamera.Render();
+                RenderTexture leftCameraRT = _leftCamera.targetTexture;
+                RenderTexture rightCameraRT = _rightCamera.targetTexture;
+
+                if (_leftCameraTextureWithEye == null)
+                {
+                    _leftCameraTextureWithEye = new RenderTexture(leftCameraRT.width, leftCameraRT.height, leftCameraRT.depth);
+                    _leftCameraTextureWithEye.antiAliasing = leftCameraRT.antiAliasing;
+                    _leftFoveEye.TargetTexture = _leftCameraTextureWithEye;
+                }
+                if (_rightCameraTextureWithEye == null)
+                {
+                    _rightCameraTextureWithEye = new RenderTexture(rightCameraRT.width, rightCameraRT.height, rightCameraRT.depth);
+                    _rightCameraTextureWithEye.antiAliasing = rightCameraRT.antiAliasing;
+                    _rightFoveEye.TargetTexture = _rightCameraTextureWithEye;
+                }
+
+                leftEye.SetActive(false);
+                rightEye.SetActive(false);
+
+                _leftCamera.targetTexture = _leftCameraTextureWithEye;
+                _leftCamera.Render();
+                _leftCamera.targetTexture = leftCameraRT;
+
+                _rightCamera.targetTexture = _rightCameraTextureWithEye;
+                _rightCamera.Render();
+                _rightCamera.targetTexture = rightCameraRT;
+
+                leftEye.SetActive(true);
+                rightEye.SetActive(true);
+
+                _leftCamera.Render();
 				_rightCamera.Render();
 			}
 		}
 
-		private void OnPreCull()
+        private RenderTexture _leftCameraTextureWithEye;
+        private RenderTexture _rightCameraTextureWithEye;
+
+        public GameObject leftEye;
+        public GameObject rightEye;
+
+        private void OnPreCull()
 		{
 			WaitForRenderPose_IfNeeded();
 		}
@@ -414,8 +450,8 @@ namespace UnityEngine
 		{
 			if (enableRendering && _hasCameras)
 			{
-				_screenBlitMaterial.SetTexture("_Tex1", _leftCamera.targetTexture);
-				_screenBlitMaterial.SetTexture("_Tex2", _rightCamera.targetTexture);
+                _screenBlitMaterial.SetTexture("_Tex1", _leftCamera.targetTexture);
+                _screenBlitMaterial.SetTexture("_Tex2", _rightCamera.targetTexture);
 				Graphics.Blit(source, destination, _screenBlitMaterial);
 			}
 			else

@@ -220,6 +220,9 @@ public class FoveEyeCamera : MonoBehaviour {
 	void OnPreCull() {
 		UpdateProjectionMatrix();
 	}
+
+	public bool ShouldDraw { get; set; }
+    public RenderTexture TargetTexture { get; set; }
 	
 	void OnRenderImage(RenderTexture source, RenderTexture destination)
 	{
@@ -228,19 +231,27 @@ public class FoveEyeCamera : MonoBehaviour {
 		if (_compositor == null)
 			return;
 
-		IntPtr texPtr = source.GetNativeTexturePtr();
+		IntPtr texPtr = TargetTexture == null ? source.GetNativeTexturePtr() : TargetTexture.GetNativeTexturePtr();
 		if (texPtr != IntPtr.Zero)
 		{
 			_layerSubmitInfo.pose = FoveInterface.GetLastPose();
 			switch (whichEye)
 			{
 				case EFVR_Eye.Left:
-					_layerSubmitInfo.left.texInfo.pTexture = texPtr;
+					if (ShouldDraw) {
+						_layerSubmitInfo.left.texInfo.pTexture = texPtr;
+					} else {
+						_layerSubmitInfo.left.texInfo.pTexture = Texture2D.blackTexture.GetNativeTexturePtr();
+					}
 					_layerSubmitInfo.right.texInfo.pTexture = IntPtr.Zero;
 					break;
-				case EFVR_Eye.Right:
+			case EFVR_Eye.Right:
 					_layerSubmitInfo.left.texInfo.pTexture = IntPtr.Zero;
-					_layerSubmitInfo.right.texInfo.pTexture = texPtr;
+					if (ShouldDraw) {
+						_layerSubmitInfo.right.texInfo.pTexture = texPtr;
+					} else {
+						_layerSubmitInfo.right.texInfo.pTexture = Texture2D.blackTexture.GetNativeTexturePtr();
+					}
 					break;
 				default:
 					Debug.LogError("[FOVE] Camera set to " + whichEye + " which isn't supported.");
