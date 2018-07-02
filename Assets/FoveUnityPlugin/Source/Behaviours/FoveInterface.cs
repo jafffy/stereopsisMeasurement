@@ -415,9 +415,11 @@ namespace UnityEngine
                     _rightCameraTextureWithEye.antiAliasing = rightCameraRT.antiAliasing;
                     _rightFoveEye.TargetTexture = _rightCameraTextureWithEye;
                 }
-
-                leftEye.SetActive(false);
-                rightEye.SetActive(false);
+				if(leftEye != null && rightEye != null)
+				{
+					leftEye.SetActive(false);
+					rightEye.SetActive(false);
+				}
 
                 _leftCamera.targetTexture = _leftCameraTextureWithEye;
                 _leftCamera.Render();
@@ -427,8 +429,11 @@ namespace UnityEngine
                 _rightCamera.Render();
                 _rightCamera.targetTexture = rightCameraRT;
 
-                leftEye.SetActive(true);
-                rightEye.SetActive(true);
+				if(leftEye != null && rightEye != null)
+				{
+					leftEye.SetActive(true);
+                	rightEye.SetActive(true);					
+				}
 
                 _leftCamera.Render();
 				_rightCamera.Render();
