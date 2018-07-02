@@ -231,31 +231,51 @@ public class FoveEyeCamera : MonoBehaviour {
 		if (_compositor == null)
 			return;
 
-		IntPtr texPtr = TargetTexture == null ? source.GetNativeTexturePtr() : TargetTexture.GetNativeTexturePtr();
+		IntPtr texPtr = IntPtr.Zero;
+
+		UnityEngine.SceneManagement.Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+
+		if (currentScene.name == "Strabismus") {
+			texPtr = TargetTexture == null ? source.GetNativeTexturePtr() : TargetTexture.GetNativeTexturePtr();
+		} else {
+			texPtr = source.GetNativeTexturePtr();
+		}
+
 		if (texPtr != IntPtr.Zero)
 		{
 			_layerSubmitInfo.pose = FoveInterface.GetLastPose();
+				
 			switch (whichEye)
 			{
-				case EFVR_Eye.Left:
+			case EFVR_Eye.Left:
+				if (currentScene.name == "Strabismus") {
 					if (ShouldDraw) {
 						_layerSubmitInfo.left.texInfo.pTexture = texPtr;
 					} else {
 						_layerSubmitInfo.left.texInfo.pTexture = Texture2D.blackTexture.GetNativeTexturePtr();
 					}
-					_layerSubmitInfo.right.texInfo.pTexture = IntPtr.Zero;
-					break;
+				} else {
+					_layerSubmitInfo.left.texInfo.pTexture = texPtr;
+				}
+
+				_layerSubmitInfo.right.texInfo.pTexture = IntPtr.Zero;
+				break;
 			case EFVR_Eye.Right:
-					_layerSubmitInfo.left.texInfo.pTexture = IntPtr.Zero;
+				_layerSubmitInfo.left.texInfo.pTexture = IntPtr.Zero;
+				
+				if (currentScene.name == "Strabismus") {
 					if (ShouldDraw) {
 						_layerSubmitInfo.right.texInfo.pTexture = texPtr;
 					} else {
 						_layerSubmitInfo.right.texInfo.pTexture = Texture2D.blackTexture.GetNativeTexturePtr();
 					}
-					break;
-				default:
-					Debug.LogError("[FOVE] Camera set to " + whichEye + " which isn't supported.");
-					return;
+				} else {
+					_layerSubmitInfo.right.texInfo.pTexture = texPtr;
+				}
+				break;
+			default:
+				Debug.LogError("[FOVE] Camera set to " + whichEye + " which isn't supported.");
+				return;
 			}
 
 			var result = _compositor.Submit(ref _layerSubmitInfo);
