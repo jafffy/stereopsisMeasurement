@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8835267}
   - component: {fileID: 8835269}
   m_Layer: 0
-  m_Name: LoggingManager
+  m_Name: AppManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63876c8437aba54c9689dc781d4c058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patientID: 
+  patientID: 898989
 --- !u!4 &8835268
 Transform:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8835269
 MonoBehaviour:
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41566dd119005c4cac9c5c8f82bafac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  translateTime: 40
+  translateTime: 5
   nextSceneName: Stereoscopsis
 --- !u!1 &9056343
 GameObject:
@@ -584,48 +584,6 @@ Transform:
   - {fileID: 1216722105}
   m_Father: {fileID: 1319936533}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &482448912
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 482448914}
-  - component: {fileID: 482448913}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &482448913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 482448912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e41566dd119005c4cac9c5c8f82bafac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  translateTime: 40
-  nextSceneName: littelTweakOnBoxScene
---- !u!4 &482448914
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 482448912}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.006898813, y: -0.7884156, z: 1.7879658}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &486816136
 Prefab:
@@ -1183,7 +1141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foveInterface: {fileID: 1035879141}
-  patientID: "\uAC04\uD5D0\uC801\uC678\uC0AC\uC2DC"
+  dataFileID: "\uAC04\uD5D0\uC801\uC678\uC0AC\uC2DC"
   leftEye: {fileID: 233091358}
   rightEye: {fileID: 1216722101}
   Timer: 0
