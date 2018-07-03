@@ -41,6 +41,14 @@ public class EyeTrackingBehaviourScript : MonoBehaviour {
     private bool _shouldLeftEyeDark = true;
     private float _shouldEyeDarkTimer = 0.0f;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        foveInterface = LoggingManager.instance.GetComponentInChildren<SceneLoader>().foveInterface.GetComponentInChildren<FoveInterface>();
+        //위의 코드 리팩토링할것 이딴식으로 짜면안댐..
+    }
     // Update is called once per frame
     void Update()
     {
