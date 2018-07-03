@@ -5,18 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
-	public float translateTime = 40.0f;
-	public string nextSceneName = "littelTweakOnBoxScene";
+	public float translateTime = 5.0f;
+	public string nextSceneName = "Stereoscopsis";
+
+	bool isLoaded = false;
 
 	void Update()
 	{
-		if(Time.deltaTime > translateTime)
+		if(Time.time > translateTime && !isLoaded)
 		{
 			LoadAnotherScene();
+			isLoaded = true;
 		}
 	}
 	void LoadAnotherScene()
-	{
+	{	
+		Debug.Log("LoadAnotherScnee");
 		SceneManager.LoadScene(nextSceneName);
 	}
 }

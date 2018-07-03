@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class LoggingManager : MonoBehaviour {
 
+	public static LoggingManager instance;
+	
 	public string patientID;
 
 	void Awake()
 	{
-		DontDestroyOnLoad(gameObject);
-	}
-	public void OnFlush()
-	{
-		if(IsValid(patientID))
-		{
-
+		if (instance == null) {
+			instance = this;
 		}
-		else
+		else if (instance != this) {
+			Destroy(gameObject);   
+		} 
+		DontDestroyOnLoad(gameObject);
+		if(!IsValid(patientID))
 		{
-			Debug.LogWarning("Patient ID가 정상적이지 않습니다. 확인해주세요");
+			Debug.LogError("PatientID를 확인해 주세요");
 		}
 	}
 
 	bool IsValid(string id)
 	{
-		return true;
+		if(id != null && id.Length != 0) { 
+			return true;
+		}
+		return false;
 	}
 }

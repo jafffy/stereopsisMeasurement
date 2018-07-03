@@ -7,12 +7,12 @@ using UnityEngine;
 public class CarBehaviourScript : MonoBehaviour {
     public FoveInterface foveInterface;
 
-    public string patientID;
+    public string dataFileID;
 
     public GameObject leftEye;
     public GameObject rightEye;
 
-    class EyeTrackingRecord
+    public class EyeTrackingRecord
     {
         public readonly float Timer = 0.0f;
         public Vector3 Origin;
@@ -131,8 +131,9 @@ public class CarBehaviourScript : MonoBehaviour {
 
         if (SaveTimer > 1.0f)
         {
-            string leftPath = "Assets/" + patientID + "_left.csv";
-
+            string leftPath = "Assets/" + LoggingManager.instance.patientID+ "/" + dataFileID + "_left.csv";
+            System.IO.FileInfo file = new System.IO.FileInfo(leftPath);
+            file.Directory.Create();
             using (var writer = new StreamWriter(leftPath, append: true))
             {
                 foreach (EyeTrackingRecord record in _leftRecords)
@@ -156,7 +157,9 @@ public class CarBehaviourScript : MonoBehaviour {
                 _leftRecords.Clear();
             }
 
-            string rightPath = "Assets/" + patientID + "_right.csv";
+            string rightPath = "Assets/" + LoggingManager.instance.patientID+ "/" + dataFileID + "_right.csv";
+            file = new System.IO.FileInfo(rightPath);
+            file.Directory.Create();
             using (var writer = new StreamWriter(rightPath, append: true))
             {
                 foreach (EyeTrackingRecord record in _rightRecords)
