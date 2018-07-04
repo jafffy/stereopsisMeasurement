@@ -46,8 +46,7 @@ public class EyeTrackingBehaviourScript : MonoBehaviour {
     /// </summary>
     void Awake()
     {
-        foveInterface = LoggingManager.instance.GetComponentInChildren<SceneLoader>().foveInterface.GetComponentInChildren<FoveInterface>();
-        //위의 코드 리팩토링할것 이딴식으로 짜면안댐..
+        foveInterface = SceneLoader.instance.foveInterface.GetComponentInChildren<FoveInterface>();
     }
     // Update is called once per frame
     void Update()

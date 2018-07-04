@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
+	public static SceneLoader instance;
 	public GameObject foveInterface;
 	public GameObject leapMotionPrefab;
 	public GameObject interactionManager;
+	public GameObject strabismusObjects;
 	public float translateTime = 5.0f;
 	public string nextSceneName = "Stereoscopsis";
 
@@ -17,6 +19,12 @@ public class SceneLoader : MonoBehaviour {
 	/// </summary>
 	void Awake()
 	{
+		if(instance == null) {
+			instance = this;
+		}
+		else {
+			Destroy(this);
+		}
 		DontDestroyOnLoad(foveInterface);
 	}
 
@@ -33,9 +41,12 @@ public class SceneLoader : MonoBehaviour {
 		Debug.Log("LoadAnotherScnee");
 		SceneManager.LoadScene(nextSceneName);
 
+		Destroy(strabismusObjects);
+
+		GameObject foveInterface_s = foveInterface.GetComponentInChildren<FoveInterface>().gameObject;
+
 		GameObject inter = Instantiate(interactionManager);
 		inter.transform.SetParent(foveInterface.transform);
-		GameObject leap = Instantiate(leapMotionPrefab);
-		leap.transform.SetParent(foveInterface.transform);
+		GameObject leap = Instantiate(leapMotionPrefab, foveInterface_s.transform);
 	}
 }
