@@ -12,6 +12,6 @@ public class FoveOrientationDebugChecker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Debug.DrawLine(transform.position, FoveInterface.GetHMDRotation() * Vector3.forward + transform.position, Color.red, 1.0f );
-		Debug.Log(FoveInterface.GetHMDRotation() * Vector3.forward + transform.position);
+		//Debug.Log(FoveInterface.GetHMDRotation() * Vector3.forward + transform.position);
 	}
 }
