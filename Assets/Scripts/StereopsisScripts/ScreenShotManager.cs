@@ -1,0 +1,32 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScreenShotManager : MonoBehaviour {
+	public static ScreenShotManager instance; 
+
+	static string completePictureName = "completePicture.png";
+	void Awake()
+	{
+		if(instance == null) {
+			instance = this;
+		}
+		else {
+			Destroy(this);
+		}
+	}
+	public static void MakeScreenShot()
+	{
+		string location = LoggingManager.GetPath(completePictureName);
+		Debug.Log(location);
+		ScreenCapture.CaptureScreenshot(location);
+	}
+
+	void OnDestroy() //파괴되는 시점이 다른 오브젝트에 비해 느릴 경우 문제 생길 수 있음 체크해보기.
+	{
+		if(!System.IO.File.Exists(LoggingManager.GetPath(completePictureName)))
+		{
+			MakeScreenShot();
+		}
+	}
+}

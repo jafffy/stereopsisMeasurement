@@ -78,7 +78,7 @@ public class EyeTrackingBehaviourScript : MonoBehaviour {
 
         if (SaveTimer > 1.0f)
         {
-            string leftPath = "Assets/" + LoggingManager.instance.patientID+ "/" + dataFileID + "_left.csv";
+            string leftPath = LoggingManager.GetPath(dataFileID + "_left.csv");
             System.IO.FileInfo file = new System.IO.FileInfo(leftPath);
             file.Directory.Create();
             using (var writer = new StreamWriter(leftPath, append: true))
@@ -104,7 +104,7 @@ public class EyeTrackingBehaviourScript : MonoBehaviour {
                 _leftRecords.Clear();
             }
 
-            string rightPath = "Assets/" + LoggingManager.instance.patientID+ "/" + dataFileID + "_right.csv";
+            string rightPath = LoggingManager.GetPath(dataFileID + "_right.csv");
             file = new System.IO.FileInfo(rightPath);
             file.Directory.Create();
             using (var writer = new StreamWriter(rightPath, append: true))

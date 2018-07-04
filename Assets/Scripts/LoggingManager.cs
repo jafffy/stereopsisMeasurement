@@ -5,9 +5,9 @@ using UnityEngine;
 public class LoggingManager : MonoBehaviour {
 
 	public static LoggingManager instance;
-	
+	[Tooltip("If this is false, Data file will be located on Desktop")]
+	public bool locateDataFileOnAssets = false;
 	public string patientID;
-
 	void Awake()
 	{
 		if (instance == null) {
@@ -29,5 +29,18 @@ public class LoggingManager : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+	static public string GetPath(string subfix)
+	{
+		return instance.locateDataFileOnAssets ? GetAssetsPath(subfix) : GetDesktopPath(subfix);
+	}
+	static string GetAssetsPath(string subfix)
+	{
+		return "Assets/" + instance.patientID+ "/" + subfix;
+	}
+	static string GetDesktopPath(string subfix)
+	{
+		return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)
+			+ "/"+instance.patientID+ "/" + subfix;
 	}
 }

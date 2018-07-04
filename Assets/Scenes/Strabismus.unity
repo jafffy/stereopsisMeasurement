@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8835268}
   - component: {fileID: 8835267}
+  - component: {fileID: 8835270}
   - component: {fileID: 8835269}
   m_Layer: 0
   m_Name: AppManager
@@ -141,7 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63876c8437aba54c9689dc781d4c058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patientID: 898989
+  locateDataFileOnAssets: 0
+  patientID: 123456
 --- !u!4 &8835268
 Transform:
   m_ObjectHideFlags: 0
@@ -173,6 +175,17 @@ MonoBehaviour:
   strabismusObjects: {fileID: 1319936532}
   translateTime: 5
   nextSceneName: Stereoscopsis
+--- !u!114 &8835270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 8835266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0f66d8707423964abc9e990766db8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9056343
 GameObject:
   m_ObjectHideFlags: 0
