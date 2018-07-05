@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ScreenShotManager : MonoBehaviour {
 	public static ScreenShotManager instance; 
-
+	[Tooltip("Define How often unity captures screen automatically")]
+	public float autoCaptureInterval = 5.0f;
+	float timeBucket = 0;
 	static string completePictureName = "completePicture.png";
 	void Awake()
 	{
@@ -15,6 +17,14 @@ public class ScreenShotManager : MonoBehaviour {
 			Destroy(this);
 		}
 	}
+	void Update()
+	{
+		if(Time.time > timeBucket + autoCaptureInterval)
+		{
+			timeBucket = Time.time;
+			MakeScreenShot();
+		}
+	}
 	public static void MakeScreenShot()
 	{
 		string location = LoggingManager.GetPath(completePictureName);
@@ -22,11 +32,4 @@ public class ScreenShotManager : MonoBehaviour {
 		ScreenCapture.CaptureScreenshot(location);
 	}
 
-	void OnDestroy() //파괴되는 시점이 다른 오브젝트에 비해 느릴 경우 문제 생길 수 있음 체크해보기.
-	{
-		if(!System.IO.File.Exists(LoggingManager.GetPath(completePictureName)))
-		{
-			MakeScreenShot();
-		}
-	}
 }
