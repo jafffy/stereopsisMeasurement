@@ -5,24 +5,29 @@ using System;
 
 using UnityEngine;
 
-public class ReplayLogger : MonoBehaviour {
+public class ReplayManager : MonoBehaviour {
 
 	public List<GameObject> serializedObjects;
-
     List<CustomTransform> frameData;
 
-    bool enableReplay = false;
-	void Start()
-	{
-
-	}
+    public bool enableReplay = false;
+    int cursor = 0;
 
 	void Update()
 	{
-		Flush();
         if(enableReplay)
         {
-            
+            for (int i = 0 ; i < serializedObjects.Count; i ++)
+            {
+                CustomTransform currentFrameData = frameData[cursor++]; 
+                serializedObjects[currentFrameData.index].transform.position = currentFrameData.position;
+                serializedObjects[currentFrameData.index].transform.rotation = Quaternion.Euler(currentFrameData.rotation);
+                serializedObjects[currentFrameData.index].transform.localScale = currentFrameData.scale;
+            }
+        }
+        else
+        {
+            Flush();
         }
 	}
 
@@ -50,8 +55,9 @@ public class ReplayLogger : MonoBehaviour {
         ,tr.localScale.x , tr.localScale.y, tr.localScale.z);
     }
 
-    void LoadReplayData(string filePath)
+    public void LoadReplayData()
     {
+        string filePath = "Assets/" + "replayData.csv";
 		System.IO.FileInfo file = new System.IO.FileInfo(filePath);
         file.Directory.Create();
         using (var reader = new StreamReader(filePath))
@@ -77,9 +83,10 @@ public class ReplayLogger : MonoBehaviour {
             }
         }
     }
-    void StartReplay()
+    public void StartReplay()
     {
         enableReplay = true;
+        cursor = 0;
     }
 
     class CustomTransform
