@@ -15,7 +15,7 @@ public class ReplayManager : MonoBehaviour {
 
 	void Update()
 	{
-        if(enableReplay)
+        if(enableReplay && frameData != null)
         {
             for (int i = 0 ; i < serializedObjects.Count; i ++)
             {
@@ -64,7 +64,7 @@ public class ReplayManager : MonoBehaviour {
         {
             frameData = new List<CustomTransform>();
             string line = reader.ReadLine();
-            while(line.Length != 0 && line != null)
+            while(line != null && line.Length != 0)
             {
                 string[] splitArray = line.Split(',');
                 Vector3 position = new Vector3(float.Parse(splitArray[1]), float.Parse(splitArray[2]), float.Parse(splitArray[3]));
@@ -82,6 +82,7 @@ public class ReplayManager : MonoBehaviour {
                 line = reader.ReadLine();
             }
         }
+        StartReplay();
     }
     public void StartReplay()
     {
