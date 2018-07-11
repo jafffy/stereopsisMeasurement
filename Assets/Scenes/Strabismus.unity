@@ -173,7 +173,7 @@ MonoBehaviour:
   interactionManager: {fileID: 1109417384681206, guid: 2f1649580de1da7488e6ab63ca321d68,
     type: 2}
   strabismusObjects: {fileID: 1319936532}
-  translateTime: 5
+  translateTime: 40
   nextSceneName: Stereoscopsis
 --- !u!114 &8835270
 MonoBehaviour:

@@ -1537,6 +1537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f165d9d0eeab8bb4685befd71a9808db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalDirectionalLight: {fileID: 1191077888}
 --- !u!1 &1886407765
 GameObject:
   m_ObjectHideFlags: 0
@@ -1652,7 +1653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foveInterface: {fileID: 0}
-  dataFileID: 
+  dataFileID: "\uC785\uCCB4\uC2DC"
   leftEye: {x: 0, y: 0, z: 0}
   rightEye: {x: 0, y: 0, z: 0}
   Timer: 0
