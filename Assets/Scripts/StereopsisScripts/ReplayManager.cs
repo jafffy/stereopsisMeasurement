@@ -10,7 +10,7 @@ public class ReplayManager : MonoBehaviour {
 	public List<GameObject> serializedObjects;
     List<CustomTransform> frameData;
 
-    public bool enableReplay = false;
+    bool enableReplay = false;
     int cursor = 0;
 
 	void Update()
@@ -84,7 +84,7 @@ public class ReplayManager : MonoBehaviour {
         }
         StartReplay();
     }
-    public void StartReplay()
+    void StartReplay()
     {
         enableReplay = true;
         cursor = 0;
