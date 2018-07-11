@@ -6,7 +6,7 @@ using System;
 using UnityEngine;
 
 public class ReplayManager : MonoBehaviour {
-
+    //The order of Objects should be same on Replay Scene and Stereopsis Scene.
 	public List<GameObject> serializedObjects;
     List<CustomTransform> frameData;
 
