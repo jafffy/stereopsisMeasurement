@@ -1187,8 +1187,7 @@ MonoBehaviour:
   - {fileID: 659362708}
   - {fileID: 1042338454}
   - {fileID: 1448079262}
-  _sphereMesh: {fileID: 4300002, guid: 2f496b1b1bec86743b418551f859020c, type: 3}
-  _material: {fileID: 2100000, guid: 54c7ebaa87ca86c43b6415f91033b9e2, type: 2}
+  - {fileID: 690542071}
   left_hand: {fileID: 0}
   right_hand: {fileID: 0}
 --- !u!4 &1692630893

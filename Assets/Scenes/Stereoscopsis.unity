@@ -1273,7 +1273,9 @@ MonoBehaviour:
   - {fileID: 358536867}
   - {fileID: 548509889}
   - {fileID: 52355073}
-  enableReplay: 0
+  - {fileID: 386290413}
+  left_hand: {fileID: 0}
+  right_hand: {fileID: 0}
 --- !u!4 &1078039155
 Transform:
   m_ObjectHideFlags: 0
