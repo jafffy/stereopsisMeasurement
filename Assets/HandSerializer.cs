@@ -19,21 +19,28 @@ public class HandSerializer : MonoBehaviour {
 			ReplayManager.instance.right_hand = this; 
 		}
 	}
-	public List<Vector3> GetHandPositions()
+
+	public List<Vector3>[] GetHandPositions()
 	{
-		List<Vector3> positions = new List<Vector3>();
+		int arrayLength = target.GetLeapHand().Fingers.Count + 1;
+		List<Vector3>[] indexedArray = new List<Vector3>[arrayLength];
+		int i = 0;
 		//Fingers
 		foreach (var finger in target.GetLeapHand().Fingers) {
+			List<Vector3> positions = new List<Vector3>();
 			for (int j = 0; j < 4; j++) {
 				int key = getFingerJointIndex((int)finger.Type, j);
 				Vector3 position = finger.Bone((Bone.BoneType)j).NextJoint.ToVector3();
 				positions.Add(position);
 			}
+			indexedArray[i++] = positions;
         }
 		//Palm
+		List<Vector3> palmPositions = new List<Vector3>();
 		Vector3 palmPosition = target.GetLeapHand().PalmPosition.ToVector3();
-      	positions.Add(palmPosition);
-		return positions;
+      	palmPositions.Add(palmPosition);
+		indexedArray[i] = palmPositions;
+		return indexedArray;
 	}
 
 	private int getFingerJointIndex(int fingerIndex, int jointIndex) {
