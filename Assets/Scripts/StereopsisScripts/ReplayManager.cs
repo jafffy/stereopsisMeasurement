@@ -95,7 +95,7 @@ public class ReplayManager : MonoBehaviour {
         }
         int currentFrame = frameData[cursor].frame;
         CustomTransform currentFrameData = frameData[cursor++]; 
-        while(currentFrame == frameData[cursor].frame)
+        while(cursor < frameData.Count && currentFrame == frameData[cursor].frame)
         {
             if(currentFrameData.index < serializedObjects.Count)
             {
