@@ -52,7 +52,7 @@ public class ReplayManager : MonoBehaviour {
 
 	void SaveData()
 	{
-        string filePath = "Assets/" + "replayData.csv";
+    string filePath = LoggingManager.GetPath("replayData.csv");
 		System.IO.FileInfo file = new System.IO.FileInfo(filePath);
         file.Directory.Create();
         using (var writer = new StreamWriter(filePath, append: true))
@@ -208,7 +208,7 @@ public class ReplayManager : MonoBehaviour {
 
     public void LoadReplayData()
     {
-        string filePath = "Assets/" + "replayData.csv";
+    string filePath = LoggingManager.GetPath("replayData.csv");
 		System.IO.FileInfo file = new System.IO.FileInfo(filePath);
         using (var reader = new StreamReader(filePath))
         {
