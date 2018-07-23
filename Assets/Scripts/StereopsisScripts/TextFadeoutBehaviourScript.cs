@@ -16,7 +16,7 @@ public class TextFadeoutBehaviourScript : MonoBehaviour {
     {
       timer += Time.deltaTime;
 
-      if (timer > 10.0)
+      if (timer > 20.0)
       {
         gameObject.SetActive(false);
       }

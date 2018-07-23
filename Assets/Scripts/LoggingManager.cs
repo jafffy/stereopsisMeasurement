@@ -8,6 +8,8 @@ public class LoggingManager : MonoBehaviour {
 	[Tooltip("If this is false, Data file will be located on Desktop")]
 	public bool locateDataFileOnAssets = false;
 	public string patientID;
+  public string today;
+
 	void Awake()
 	{
 		if (instance == null) {
@@ -41,6 +43,6 @@ public class LoggingManager : MonoBehaviour {
 	static string GetDesktopPath(string subfix)
 	{
 		return System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)
-			+ "/"+instance.patientID+ "/" + subfix;
+			+ "/data/" + instance.today + "/" + instance.patientID + "/" + subfix;
 	}
 }
