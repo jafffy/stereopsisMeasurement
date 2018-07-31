@@ -169,12 +169,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foveInterface: {fileID: 486816137}
-  leapMotionPrefab: {fileID: 167028, guid: 18d6bf9063dcb1842be63f411fd9fc26, type: 2}
+  leapMotionPrefab: {fileID: 167028, guid: 0d97d0fc3993e5443960b63820acffba, type: 2}
   interactionManager: {fileID: 1109417384681206, guid: 2f1649580de1da7488e6ab63ca321d68,
     type: 2}
   strabismusObjects: {fileID: 1319936532}
   translateTime: 40
   nextSceneName: Stereoscopsis
+  m_interactionManager: {fileID: 0}
 --- !u!114 &8835270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f66d8707423964abc9e990766db8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoCaptureInterval: 5
 --- !u!1 &9056343
 GameObject:
   m_ObjectHideFlags: 0
