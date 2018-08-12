@@ -4,6 +4,9 @@ using UnityEngine;
 using Fove.Managed;
 
 public class PositioningObjects : MonoBehaviour {
+
+    const string SceneWithEnvironment = "StereoscopsisWithEnvironment";
+    const string SceneWithoutEnvironment = "Stereoscopsis";
     public GameObject globalDirectionalLight;
     public GameObject positionSocket;
     public GameObject environment;
@@ -13,7 +16,14 @@ public class PositioningObjects : MonoBehaviour {
 	void Awake()
 	{
         foveInterface = SceneLoader.instance.foveInterface.GetComponentInChildren<FoveInterface>().gameObject;
-        AllignWithEnvironment();	
+        if(SceneLoader.instance.nextSceneName == SceneWithoutEnvironment)
+        {
+            AllignWithNoEnvironment();
+        }
+        else
+        {
+            AllignWithEnvironment();
+        }
 	}
 
     void AllignWithNoEnvironment()
