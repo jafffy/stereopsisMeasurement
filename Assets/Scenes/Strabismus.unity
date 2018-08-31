@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locateDataFileOnAssets: 0
   patientID: 123456
+  today: 
 --- !u!4 &8835268
 Transform:
   m_ObjectHideFlags: 0
@@ -173,9 +174,8 @@ MonoBehaviour:
   interactionManager: {fileID: 1109417384681206, guid: 2f1649580de1da7488e6ab63ca321d68,
     type: 2}
   strabismusObjects: {fileID: 1319936532}
-  translateTime: 40
-  nextSceneName: Stereoscopsis
-  m_interactionManager: {fileID: 0}
+  translateTime: 1
+  nextSceneName: StereoscopsisWithEnvironment
 --- !u!114 &8835270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +187,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f66d8707423964abc9e990766db8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoCaptureInterval: 5
 --- !u!1 &9056343
 GameObject:
   m_ObjectHideFlags: 0
