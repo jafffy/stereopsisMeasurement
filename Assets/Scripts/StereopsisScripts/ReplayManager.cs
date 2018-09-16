@@ -239,6 +239,119 @@ public class ReplayManager : MonoBehaviour {
         StartReplay();
     }
     
+    public void IterateAllDirectory()
+    {
+        //5개 단위로 읽는다 (5개가 최소단위로 0을 놓치지 않는 단위임)
+        const int minimumUnit = 5;
+        const int indexBackwardOffset = 540;
+        //File Path에 \와 /가 섞여서 존재함. split할 때 주의
+        string dataDirectory = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "/data/";
+        string[] allDates = Directory.GetDirectories(dataDirectory);
+        foreach(string date in allDates)
+        {
+            string[] allPatientIDs = Directory.GetDirectories(date);
+            foreach(string patientID in allPatientIDs)
+            {
+                if(patientID.Contains("test"))
+                    continue;
+                string path = patientID + "\\replayData.csv";
+                if (File.Exists(path))
+                {
+                    using (StreamReader csv = new StreamReader(path))
+                    {
+                        string read = csv.ReadToEnd();
+                        string[] rows = read.Split('\n');
+                        int i = 1;
+                        int j = 0;
+                        int zeroCount = 0;
+                        while (true)
+                        {
+                            for (i = 1; i < minimumUnit + 1; i++)
+                            {
+                                string[] elements = rows[rows.Length - (i + j * minimumUnit)].Split(',');
+                                if (elements[0] == string.Empty)
+                                {
+                                    continue;
+                                }
+                                if (Int32.Parse(elements[0]) == 0)
+                                {
+                                    zeroCount++;
+                                }
+                                if (zeroCount >= indexBackwardOffset)
+                                {
+                                    //액셀에서는 아래의 Index값 +1이 맞음 (1부터 시작하므로)
+                                    Debug.Log(path + " Index : " + (rows.Length - (i + j * minimumUnit)) + " " +
+                                        "Contant : " + rows[rows.Length - (i + j * minimumUnit)]);
+                                    break;
+                                }
+                            }
+                            j++;
+                            if (zeroCount >= indexBackwardOffset)
+                                break;
+                        }
+
+                        string extractedFile = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\file.csv";
+                        StreamWriter outStream;
+                        if (File.Exists(extractedFile))
+                        {
+                            outStream = new StreamWriter(File.Open(extractedFile, FileMode.Append));
+                        }
+                        else
+                        {
+                            outStream = new StreamWriter(File.Create(extractedFile));
+                        }
+
+                        string replaced = path.Replace('/', '\\');
+                        string[] splitedPath = replaced.Split('\\');
+                        
+                        string dateString = splitedPath[5];
+                        string patientIdString = splitedPath[6];
+                        //여기서 부터 rows.Length - (i+j*minimumUnit) 이 0에 해당한다. 
+                        for (int k = 0; k < 4; k++)
+                        {
+                            int baseIndex = rows.Length - (i + j * minimumUnit);
+                            Vector3 pos0, pos1;
+                            Vector3 rot0, rot1;
+                            ExtractPositionAndRotation(rows[baseIndex + k], out pos0, out rot0);
+                            ExtractPositionAndRotation(rows[baseIndex + k + 1], out pos1, out rot1);
+                            Vector3 deltaPos = pos1 - pos0;
+                            Vector3 deltaRot = rot1 - rot0;
+                            outStream.WriteLine(String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                                dateString, patientIdString, baseIndex+k,
+                                deltaPos.x, deltaPos.y, deltaPos.z,
+                                Math.Abs(deltaPos.x), Math.Abs(deltaPos.y)));
+                            //Debug.Log("Path : " + path + " Delta : " + deltaPos.ToString("F4"));
+                        }
+                        outStream.Close();
+                    }
+                }
+                
+            }
+        }
+    }
+
+    private void ExtractPositionAndRotation(string source, out Vector3 pos, out Vector3 rot)
+    {
+        string[] elems = source.Split(',');
+        pos = new Vector3(float.Parse(elems[1]), float.Parse(elems[2]), float.Parse(elems[3]));
+        rot = new Vector3(float.Parse(elems[4]), float.Parse(elems[5]), float.Parse(elems[6]));
+    }
+
+    public void DataExtract()
+    {
+        //0, 1, 2, 3, 4 까지만 Box이다.
+        int currentFrame = frameData[cursor].frame;
+        CustomTransform currentData = frameData[cursor];
+        while (cursor < frameData.Count && currentFrame == frameData[cursor].frame)
+        {
+            if (currentData.index > 3)
+                return;
+            //Debug.Log(currentData.position);
+            Vector3 delta = frameData[cursor + 1].position - currentData.position;
+            Debug.Log(" " + currentData.index + " " + delta.ToString("F4"));
+            currentData = frameData[++cursor];
+        }  
+    }
 
     class CustomTransform
     {
