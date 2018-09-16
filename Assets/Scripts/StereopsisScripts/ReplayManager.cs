@@ -4,6 +4,7 @@ using System.IO;
 using System;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ReplayManager : MonoBehaviour {
     public static ReplayManager instance;
@@ -44,7 +45,7 @@ public class ReplayManager : MonoBehaviour {
         {
             Render();
         }
-        else
+        else if (SceneManager.GetActiveScene().name != "ReplayScene")
         {
             SaveData();
         }
